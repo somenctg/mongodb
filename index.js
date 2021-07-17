@@ -1,10 +1,10 @@
 const express = require('express')
 const app = express()
-const { MongoClient } = require('mongodb');
+const MongoClient = require("mongodb").MongoClient;
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()) ;
-const port = 3000;
+const port = 5000;
 
 const uri = "mongodb+srv://naturalUser:sirus4213@cluster0.hvcun.mongodb.net/naturaldb?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -21,15 +21,12 @@ client.connect(err => {
     })
 
   });
-  app.post('/addProduct', function (req, res) {
+  app.post("/addProduct", function (req, res) {
     const product =req.body;
     productCollection.insertOne(product)
     .then(result=>{
       res.send(result.insertedCount >0);
 
-    })
-    .catch(error=>{
-      console.log(error);
     })
   
     
